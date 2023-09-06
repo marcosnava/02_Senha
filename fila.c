@@ -11,32 +11,44 @@ int fl_fim = 0;
 BOOLEAN fl_vazia = TRUE;
 
 // Funções
+BOOLEAN fimDoVetor(int quem)
+{
+    return quem == FL_TAMANHO;
+}
+
+BOOLEAN filaCheia()
+{
+    return fl_inicio == fl_fim;
+}
+
+BOOLEAN filaEsvaziou()
+{
+    return fl_inicio == fl_fim;
+}
+
 BOOLEAN inserir(int valor)
 {
     if(fl_vazia)
     {
         fila[fl_fim] = valor;
         fl_fim++;
-        if(fl_fim == FL_TAMANHO)
+        if(fimDoVetor(fl_fim))
         {
-            fl_fim = 0;
+            fl_fim = FL_INICIO_DO_VETOR;
         }
         fl_vazia = FALSE;
     }
     else
     {
-        if(fl_inicio != fl_fim)
-        {
-            fila[fl_fim] = valor;
-            fl_fim++;
-            if(fl_fim == FL_TAMANHO)
-            {
-                fl_fim = 0;
-            }
-        }
-        else
+        if(filaCheia())
         {
             return FALSE;
+        }
+        fila[fl_fim] = valor;
+        fl_fim++;
+        if(fimDoVetor(fl_fim))
+        {
+            fl_fim = FL_INICIO_DO_VETOR;
         }
     }
     return TRUE;
@@ -44,24 +56,22 @@ BOOLEAN inserir(int valor)
 
 BOOLEAN retirar(int *valor)
 {
-    if(!fl_vazia)
-    {
-        *valor = fila[fl_inicio];
-        fl_inicio++;
-        if(fl_inicio == FL_TAMANHO)
-        {
-            fl_inicio = 0;
-        }
-        if(fl_inicio == fl_fim)
-        {
-            fl_vazia = TRUE;
-        }
-        return TRUE;
-    }
-    else
+    if(fl_vazia)
     {
         return FALSE;
     }
+    *valor = fila[fl_inicio];
+    fl_inicio++;
+    if(fimDoVetor(fl_inicio))
+    {
+        fl_inicio = FL_INICIO_DO_VETOR;
+    }
+    if(filaEsvaziou())
+    {
+        fl_vazia = TRUE;
+    }
+
+    return TRUE;
 }
 
 BOOLEAN existir(int valor)
@@ -74,8 +84,8 @@ BOOLEAN existir(int valor)
                 return TRUE;
             }
             i++;
-            if (i == FL_TAMANHO) {
-                i = 0;
+            if (fimDoVetor(i)) {
+                i = FL_INICIO_DO_VETOR;
             }
         } while (i != fl_fim);
     }

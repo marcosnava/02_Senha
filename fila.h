@@ -11,6 +11,7 @@
 
 enum{
     FL_TAMANHO = 10,
+    FL_INICIO_DO_VETOR = 0
 };
 
 // Variáveis
@@ -23,5 +24,8 @@ extern BOOLEAN fl_vazia;
 BOOLEAN inserir(int valor);
 BOOLEAN retirar(int *valor);
 BOOLEAN existir(int valor);
+BOOLEAN fimDoVetor(int quem);
+BOOLEAN filaCheia();
+BOOLEAN filaEsvaziou();
 
 #endif //INC_02_SENHA_FILA_H

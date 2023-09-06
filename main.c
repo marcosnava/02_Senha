@@ -18,7 +18,6 @@ int gerarSenha();
 int main() {
     int opcao = OP_NAO_SELECIONADO;
     int numero;
-    int deuCerto;
 
     srand(time(NULL));
 
@@ -28,8 +27,7 @@ int main() {
         switch (opcao) {
             case OP_GERAR_SENHA:
                 numero = gerarSenha();
-                deuCerto = inserir(numero);
-                if(!deuCerto)
+                if(!inserir(numero))
                 {
                     printf("Fila cheia!\n");
                 }
@@ -39,8 +37,7 @@ int main() {
                 }
                 break;
             case OP_ATENDER:
-                deuCerto = retirar(&numero);
-                if(deuCerto)
+                if(retirar(&numero))
                 {
                     printf("Senha %d guiche 1\n", numero);
                 }
